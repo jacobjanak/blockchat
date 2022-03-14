@@ -1,3 +1,5 @@
+console.log("Update: 1");
+
 let account = null;
 
 // Check if Metamask is installed.
@@ -26,15 +28,6 @@ document.getElementById('sendTransaction').onclick = function() {
 }
 
 async function sendTransaction() {
-	// txHash is a hex string
-	// As with any RPC call, it may throw an error
-	const txHash = await ethereum.request({
-	  	method: 'eth_sendTransaction',
-	  	params: [ transactionParameters ],
-	});
-	
-	console.log(txHash);
-}
 
 	const transactionParameters = {
 	  	nonce: '0x00', // ignored by MetaMask
@@ -48,3 +41,13 @@ async function sendTransaction() {
 	};
 
 	console.log(transactionParameters);
+
+	// txHash is a hex string
+	// As with any RPC call, it may throw an error
+	const txHash = await ethereum.request({
+	  	method: 'eth_sendTransaction',
+	  	params: [ transactionParameters ],
+	});
+	
+	console.log(txHash);
+}
