@@ -1,8 +1,54 @@
 // Update counter for GitHub pages.
-console.log('Update: 2'); 
+console.log('Update: 3'); 
 
 // Ethereum wallet public address.
 let account = null;
+
+// Address of the smart contract.
+contractAddress = "0xacB241f59E1a8c7A61f0781aed7Ad067269feb26";
+
+// ABI of the smart contract.
+const abi = [
+	{
+		"inputs": [],
+		"name": "getText",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "t",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "t",
+				"type": "bytes32"
+			}
+		],
+		"name": "setText",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "text",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
 
 // Button to prompt user to enable metamask.
 document.getElementById('enableMetamask').onclick = function() { 
@@ -40,14 +86,9 @@ document.getElementById('sendTransaction').onclick = function() {
 async function sendTransaction() {
 
 	const transactionParameters = {
-	  	// nonce: '0x00', // ignored by MetaMask
-	  	// gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-	  	// gas: '0x2710', // customizable by user during MetaMask confirmation.
-	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26', // Required except during contract publications.
-	  	from: account, // must match user's active address.
-	  	// value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-	  	data: '0xfcc74f71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccbbb', // Optional, but used for defining smart contract creation and interaction.
-	  	// chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
+	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
+	  	from: account,
+	  	data: '0xfcc74f71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccbbb',
 	};
 
 	console.log(transactionParameters);
@@ -68,25 +109,19 @@ document.getElementById('readData').onclick = function() {
 
 async function readData() {
 
-	const transactionParameters = {
-	  	// nonce: '0x00', // ignored by MetaMask
-	  	// gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-	  	// gas: '0x2710', // customizable by user during MetaMask confirmation.
-	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26', // Required except during contract publications.
-	  	from: account, // must match user's active address.
-	  	// value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-	  	data: '0xe00fe2eb0000000000000000000000000000000000000000000000000000000000000000', // Optional, but used for defining smart contract creation and interaction.
-	  	// chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-	};
+	// Get the contract instance using your contract's abi and address:
+const contractInstance = web3.eth.contract(abi).at(contractAddress);
 
-	console.log(transactionParameters);
-
-	// txHash is a hex string
-	// As with any RPC call, it may throw an error
-	const txHash = await ethereum.request({
-	  	method: 'eth_sendTransaction',
-	  	params: [ transactionParameters ],
-	});
-	
-	console.log(txHash);
+// Call a function of the contract:
+contractInstance.text({
+	from: account,
+	value: "",
+	gas: limit },
+  	(err, res) => {
+  		console.log("err:")
+  		console.log(err)
+  		console.log("res:")
+  		console.log(res)
+  	}
+ );
 }
