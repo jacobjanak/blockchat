@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 3'); 
+console.log('Update: 4'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -109,19 +109,27 @@ document.getElementById('readData').onclick = function() {
 
 async function readData() {
 
-	// Get the contract instance using your contract's abi and address:
-const contractInstance = web3.eth.contract(abi).at(contractAddress);
+	const transactionParameters = {
+	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
+	  	from: account,
+	  	data: '0xe00fe2eb0000000000000000000000000000000000000000000000000000000000000000',
+	};
 
-// Call a function of the contract:
-contractInstance.text({
-	from: account,
-	value: "",
-	gas: limit },
-  	(err, res) => {
-  		console.log("err:")
-  		console.log(err)
-  		console.log("res:")
-  		console.log(res)
-  	}
- );
+	console.log(transactionParameters);
+
+	// txHash is a hex string
+	// As with any RPC call, it may throw an error
+	ethereum.request({
+	  	method: 'eth_sendTransaction',
+	  	params: [ transactionParameters ],
+	})
+	.then((result) => {
+		console.log(result)
+	})
+	.catch((error) => {
+		console.log("Error")
+		console.log(error)
+	})
+	
+	console.log(txHash);
 }
