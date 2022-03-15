@@ -126,6 +126,9 @@ async function readData() {
 	.then((result) => {
 		console.log(result)
 	})
+	.then((result2) => {
+		console.log(result2)
+	})
 	.catch((error) => {
 		console.log("Error")
 		console.log(error)
