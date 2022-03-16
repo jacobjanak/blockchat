@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 6'); 
+console.log('Update: 8'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -123,8 +123,10 @@ async function readData() {
 	  	method: 'eth_sendTransaction',
 	  	params: [ transactionParameters ],
 	})
-	.then((result) => {
+	.then((result, result3, result4) => {
 		console.log(result)
+		console.log(result3)
+		console.log(result4)
 	})
 	.then((result2) => {
 		console.log(result2)
