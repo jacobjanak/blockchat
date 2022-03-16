@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 8'); 
+console.log('Update: 9'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -84,14 +84,11 @@ document.getElementById('sendTransaction').onclick = function() {
 }
 
 async function sendTransaction() {
-
 	const transactionParameters = {
 	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
 	  	from: account,
 	  	data: '0xfcc74f71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccbbb',
 	};
-
-	console.log(transactionParameters);
 
 	// txHash is a hex string
 	// As with any RPC call, it may throw an error
@@ -99,7 +96,7 @@ async function sendTransaction() {
 	  	method: 'eth_sendTransaction',
 	  	params: [ transactionParameters ],
 	});
-	
+
 	console.log(txHash);
 }
 
@@ -108,33 +105,18 @@ document.getElementById('readData').onclick = function() {
 }
 
 async function readData() {
-
 	const transactionParameters = {
 	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
 	  	from: account,
 	  	data: '0x1f1bd692',
 	};
 
-	console.log(transactionParameters);
-
-	// txHash is a hex string
-	// As with any RPC call, it may throw an error
 	ethereum.request({
-	  	method: 'eth_sendTransaction',
-	  	params: [ transactionParameters ],
+	  	method: 'eth_getStorageAt',
+	  	params: [ "0xacb241f59e1a8c7a61f0781aed7ad067269feb26", 0 ],
 	})
-	.then((result, result3, result4) => {
-		console.log(result)
-		console.log(result3)
-		console.log(result4)
-	})
-	.then((result2) => {
-		console.log(result2)
-	})
-	.catch((error) => {
-		console.log("Error")
-		console.log(error)
-	})
+	.then((result) => { console.log(result) })
+	.catch((error) => { console.log(error) })
 	
 	console.log(txHash);
 }
