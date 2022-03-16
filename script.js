@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 10'); 
+console.log('Update: 11'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -105,18 +105,10 @@ document.getElementById('readData').onclick = function() {
 }
 
 async function readData() {
-	const transactionParameters = {
-	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
-	  	from: account,
-	  	data: '0x1f1bd692',
-	};
-
-	ethereum.request({
+	const data = ethereum.request({
 	  	method: 'eth_getStorageAt',
-	  	params: [ "0xacb241f59e1a8c7a61f0781aed7ad067269feb26", 0 ],
+	  	params: [ '0xacb241f59e1a8c7a61f0781aed7ad067269feb26', '0x0' ],
 	})
-	.then((result) => { console.log(result) })
-	.catch((error) => { console.log(error) })
 	
-	console.log(txHash);
+	console.log(data);
 }
