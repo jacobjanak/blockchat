@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 11'); 
+console.log('Update: 12'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -105,7 +105,7 @@ document.getElementById('readData').onclick = function() {
 }
 
 async function readData() {
-	const data = ethereum.request({
+	const data = await ethereum.request({
 	  	method: 'eth_getStorageAt',
 	  	params: [ '0xacb241f59e1a8c7a61f0781aed7ad067269feb26', '0x0' ],
 	})
