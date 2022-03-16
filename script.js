@@ -5,7 +5,7 @@ console.log('Update: 13');
 let account = null;
 
 // Address of the smart contract.
-contractAddress = "0xacB241f59E1a8c7A61f0781aed7Ad067269feb26";
+contractAddress = '0xacB241f59E1a8c7A61f0781aed7Ad067269feb26';
 
 // Button to prompt user to enable metamask.
 document.getElementById('enableMetamask').onclick = function() { 
@@ -69,3 +69,14 @@ async function readData() {
 	
 	console.log(data);
 }
+
+// convert hex to string from char code
+// nice side effect: ignores 0x
+function hex2a(hex) {
+    let str = '';
+    for (let i = 0; i < hex.length; i += 2) {
+        let v = parseInt(hex.substr(i, 2), 16);
+        if (v) str += String.fromCharCode(v);
+    }
+    return str;
+}  
