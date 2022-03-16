@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 12'); 
+console.log('Update: 13'); 
 
 // Ethereum wallet public address.
 let account = null;
@@ -7,56 +7,15 @@ let account = null;
 // Address of the smart contract.
 contractAddress = "0xacB241f59E1a8c7A61f0781aed7Ad067269feb26";
 
-// ABI of the smart contract.
-const abi = [
-	{
-		"inputs": [],
-		"name": "getText",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "t",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "t",
-				"type": "bytes32"
-			}
-		],
-		"name": "setText",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "text",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	}
-];
-
 // Button to prompt user to enable metamask.
 document.getElementById('enableMetamask').onclick = function() { 
+	// NOTE: Should I check for MetaMask or is ethereum enough?
 	if (!hasMetamask()) {
 	  	window.alert("Error: MetaMask not detected. Please install MetaMask.");
-	  	// TO DO: create a function to run the page without metamask.
+	  	// TO DO: Create a function to run the page without metamask.
 	} else {
 		enableMetamask();
+		// NOTE: Switch user to Rovan network.
 	}
 }
 
@@ -84,17 +43,15 @@ document.getElementById('sendTransaction').onclick = function() {
 }
 
 async function sendTransaction() {
-	const transactionParameters = {
-	  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
-	  	from: account,
-	  	data: '0xfcc74f71aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccbbb',
-	};
-
-	// txHash is a hex string
-	// As with any RPC call, it may throw an error
+	const methodHash = '0xfcc74f71';
+	const data = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccbb9';
 	const txHash = await ethereum.request({
 	  	method: 'eth_sendTransaction',
-	  	params: [ transactionParameters ],
+	  	params: [{
+		  	to: '0xacb241f59e1a8c7a61f0781aed7ad067269feb26',
+		  	from: account,
+		  	data: methodHash + data,
+		}],
 	});
 
 	console.log(txHash);
