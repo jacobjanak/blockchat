@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 9'); 
+console.log('Update: 10'); 
 
 // Ethereum wallet public address.
 let account = null;
