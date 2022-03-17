@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	// Update counter for GitHub pages.
-	console.log('Update: 18');
+	console.log('Update: 19');
 
 	// Enable all tooltips.
 	$('[data-toggle="tooltip"]').tooltip();
@@ -11,6 +11,7 @@ $(document).ready(function() {
 
 	// Smart contract.
 	const contract = {
+		chainId: '0x2a', // Kovan test network.
 		address: '0xacB241f59E1a8c7A61f0781aed7Ad067269feb26', // Contract public address
 		writeAddress: '0xfcc74f71', // Hex address of the write method of the contract.
 		storage: { text: null }, // Contract storage contains only bytes32 public text.
@@ -64,11 +65,11 @@ $(document).ready(function() {
 		  	window.alert("Error: MetaMask not detected. Please install MetaMask.");
 		  	// TO DO: Create a function to run the page without metamask.
 		} else {
-			enableMetamask();
-			// NOTE: Switch user to Rovan network.
-			// wallet_switchEthereumChain
-			// chainId: string; // A 0x-prefixed hexadecimal string)
-			// chainId: 42, // kovan chain id (maybe 0x42 or 0x2a ?)
+			enableMetamask(function() {
+				if (ethereum.chainId != contract.chainId) {
+					switchChain(contract.chainId)
+				}
+			});
 		}
 	})
 
@@ -105,7 +106,7 @@ $(document).ready(function() {
 	}
 
 	// Prompt user to enable MetaMask through the extension.
-	async function enableMetamask() {
+	async function enableMetamask(callback) {
 		const accounts = await ethereum.request({
 			method: 'eth_requestAccounts'
 		});
@@ -116,6 +117,15 @@ $(document).ready(function() {
 		$('#submit').show();
 		$('#wallet-address').text(walletAddress.slice(-4));
 		$('#wallet-display').show();
+		if (callback) callback();
+	}
+
+	async function switchChain(chainId) {
+		const x = await ethereum.request({
+			method: 'wallet_switchEthereumChain',
+			params: [ chainId ],
+		});
+		console.log(x);
 	}
 
 	// Convert hexadecimal number to string using char codes.
