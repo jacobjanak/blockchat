@@ -1,5 +1,5 @@
 // Update counter for GitHub pages.
-console.log('Update: 15'); 
+console.log('Update: 16'); 
 
 // DOM references.
 const contractTextDisplay = document.getElementById('contract-text-display');
@@ -26,7 +26,7 @@ const contract = {
 	read: async function(callback) {
 		const text = await ethereum.request({
 		  	method: 'eth_getStorageAt',
-		  	params: [ contractAddress, '0x0' ],
+		  	params: [ this.address, '0x0' ],
 		})
 		if (callback) callback(text);
 	},
@@ -36,7 +36,7 @@ const contract = {
 		const txHash = await ethereum.request({
 		  	method: 'eth_sendTransaction',
 		  	params: [{
-			  	to: contractAddress,
+			  	to: this.address,
 			  	from: walletAddress,
 			  	data: this.writeAddress + (data || ''),
 			}],
