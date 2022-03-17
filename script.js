@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 	// Update counter for GitHub pages.
-	console.log('Update: 19');
+	console.log('Update: 20');
 
 	// Enable all tooltips.
 	$('[data-toggle="tooltip"]').tooltip();
@@ -40,22 +40,12 @@ $(document).ready(function() {
 	}
 
 	// Read data from the smart contract and display it.
-	if (hasMetamask() && ethereum.chainId == contract.chainId) {
-		contract.read(function(hex) {
-			contract.storage.text = hex;
-			const str = hexToString(contract.storage.text);
-
-			// Dynamically set font size according to text length.
-			// let fontSize = Math.ceil(100 / str.length);
-			// if (fontSize > 20) fontSize = 20;
-			// else if (fontSize < 2) fontSize = 2; // Should never happen.
-			// fontSize = fontSize + 'vw';
-
-			// Update DOM.
-			$('#contract-text-display').text(str); // .css({ fontSize });
-		});
-	} else {
+	if (!hasMetamask()) {
 		$('#contract-text-display').text("No Ethereum Wallet Detected");
+	} else if (ethereum.chainId != contract.chainId) {
+		$('#contract-text-display').text("Wrong Ethereum network");
+	} else {
+		getContractData();
 	}
 
 	// Button to prompt user to enable metamask.
@@ -66,8 +56,9 @@ $(document).ready(function() {
 		  	// TO DO: Create a function to run the page without metamask.
 		} else {
 			enableMetamask(function() {
+				$('#contract-text-display').text("Wrong Ethereum network");
 				if (ethereum.chainId != contract.chainId) {
-					switchChain(contract.chainId)
+					switchChain(contract.chainId, getContractData)
 				}
 			});
 		}
@@ -105,6 +96,23 @@ $(document).ready(function() {
 		return window.ethereum ? ethereum.isMetaMask : false;
 	}
 
+	// Read the contract data and update the DOM.
+	function getContractData() {
+		contract.read(function(hex) {
+			contract.storage.text = hex;
+			const str = hexToString(contract.storage.text);
+
+			// Dynamically set font size according to text length.
+			// let fontSize = Math.ceil(100 / str.length);
+			// if (fontSize > 20) fontSize = 20;
+			// else if (fontSize < 2) fontSize = 2; // Should never happen.
+			// fontSize = fontSize + 'vw';
+
+			// Update DOM.
+			$('#contract-text-display').text(str); // .css({ fontSize });
+		});
+	}
+
 	// Prompt user to enable MetaMask through the extension.
 	async function enableMetamask(callback) {
 		const accounts = await ethereum.request({
@@ -120,12 +128,13 @@ $(document).ready(function() {
 		if (callback) callback();
 	}
 
-	async function switchChain(chainId) {
+	async function switchChain(chainId, callback) {
 		const x = await ethereum.request({
 			method: 'wallet_switchEthereumChain',
 			params: [{ chainId }],
 		});
 		console.log(x);
+		if (callback) callback();
 	}
 
 	// Convert hexadecimal number to string using char codes.
