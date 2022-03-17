@@ -123,7 +123,7 @@ $(document).ready(function() {
 	async function switchChain(chainId) {
 		const x = await ethereum.request({
 			method: 'wallet_switchEthereumChain',
-			params: chainId,
+			params: { chainId },
 		});
 		console.log(x);
 	}
