@@ -26,8 +26,6 @@ $(document).ready(function() {
 			  	method: 'eth_getStorageAt',
 			  	params: [ this.address, '0x0' ],
 			})
-			console.log('text');
-			console.log(text);
 			if (callback) callback(text);
 		},
 
@@ -103,17 +101,23 @@ $(document).ready(function() {
 	// Read the contract data and update the DOM.
 	function getContractData() {
 		contract.read(function(hex) {
-			contract.storage.text = hex;
-			const str = hexToString(contract.storage.text);
 
-			// Dynamically set font size according to text length.
-			// let fontSize = Math.ceil(100 / str.length);
-			// if (fontSize > 20) fontSize = 20;
-			// else if (fontSize < 2) fontSize = 2; // Should never happen.
-			// fontSize = fontSize + 'vw';
+			// Happens when user is connected to wrong eth network.
+			if (hex === '0x0000000000000000000000000000000000000000000000000000000000000000') {
+				$('#contract-text-display').text(connectWalletMsg);
+			} else {
+				contract.storage.text = hex;
+				const str = hexToString(contract.storage.text);
 
-			// Update DOM.
-			$('#contract-text-display').text(str); // .css({ fontSize });
+				// Dynamically set font size according to text length.
+				// let fontSize = Math.ceil(100 / str.length);
+				// if (fontSize > 20) fontSize = 20;
+				// else if (fontSize < 2) fontSize = 2; // Should never happen.
+				// fontSize = fontSize + 'vw';
+
+				// Update DOM.
+				$('#contract-text-display').text(str); // .css({ fontSize });
+			}
 		});
 	}
 
@@ -137,6 +141,7 @@ $(document).ready(function() {
 			method: 'wallet_switchEthereumChain',
 			params: [{ chainId }],
 		});
+		console.log("x");
 		console.log(x);
 		if (callback) callback();
 	}
