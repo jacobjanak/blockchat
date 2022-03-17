@@ -6,59 +6,70 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
 	<link rel="manifest" href="favicon_io/site.webmanifest">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>BlockChat</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<link rel="stylesheet" href="text.css" />
 	<link rel="stylesheet" href="style.css" />
 </head>
 <body>
+	<div class="container">
 
-	<!-- NavBar -->
-	<nav class="navbar navbar-light">
-		<div class="container-fluid">
-			<span class="navbar-brand mb-0 h1">
-				BlockChat
-			</span>
-			<span id="wallet-display" class="mt-1" data-toggle="tooltip" data-placement="bottom" title="Wallet connected">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-wallet" viewBox="0 0 16 20">
-  					<path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
-				</svg>
-				<span>0x<small id="dots">...</small><span id="wallet-address"></span></span>
-			</span>
-			<button class="connect-wallet btn btn-success">
-				Connect Wallet
+		<!-- NavBar -->
+		<nav class="navbar navbar-light mb-5">
+			<div class="container-fluid">
+				<span class="navbar-brand mb-0 h1">
+					BlockChat
+				</span>
+				<span id="wallet-display" class="mt-1" data-toggle="tooltip" data-placement="bottom" title="Wallet connected">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-wallet" viewBox="0 0 16 20">
+	  					<path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
+					</svg>
+					<span>0x<span id="dots">...</span><span id="wallet-address"></span></span>
+				</span>
+				<button class="connect-wallet btn btn-success">
+					Connect Wallet
+				</button>
+			</div>
+		</nav>
+
+		<!-- Spotlight word -->
+		<h1 id="spotlight" class="title">
+		    <span id="contract-text-display" class="title-part line-1"></span>
+		  </h1>
+
+	  	<!-- Update form -->
+<!-- 		<div class="mb-3">
+			<button type="button" id="change-text" class="btn">
+				<h5 class="mb-0"><i>Click here to change the text.</i></h5>
 			</button>
+		</div> -->
+		<div id="form-container">
+			<div class="d-inline-block ml-auto mr-auto">
+				<form id="contract-text-update-form">
+				  	<div class="form-group mb-2">
+					    <input type="text" id="contract-text-input" class="form-control text-center ml-auto mr-auto" placeholder="Enter new text" maxlength="32" autocomplete="off" required>
+					    <small id="emailHelp" class="form-text text-muted">
+					    	(<span id="char-count">0</span>/32 characters)
+					    </small>
+				  	</div>
+				  	<button type="submit" id="submit" class="btn btn-primary">
+				  		Update Blockchain
+				  	</button>
+				</form>
+<!-- 				<button class="connect-wallet btn btn-success">
+					Connect Wallet
+				</button> -->
+			</div>
 		</div>
-	</nav>
 
-	<!-- Spotlight word -->
-	<h1 id="spotlight" class="title">
-	    <span id="contract-text-display" class="title-part line-1"></span>
-	  </h1>
+		<!-- Footer -->
+		<nav class="navbar fixed-bottom navbar-light">
+			<div class="container">
+				<span>Need test ETH? <a target="_blank" href="https://ethdrop.dev/">ethdrop.dev</a></span>
+			</div>
+		</nav>
 
-  	<!-- Update form -->
-	<div class="mb-3">
-		<button type="button" id="change-text" class="btn">
-			<h5 class="mb-0"><i>Click here to change the text.</i></h5>
-		</button>
-	</div>
-	<div id="form-container">
-		<div class="d-inline-block ml-auto mr-auto">
-			<form id="contract-text-update-form">
-			  	<div class="form-group mb-2">
-				    <input type="text" id="contract-text-input" class="form-control text-center ml-auto mr-auto" placeholder="Enter new text" maxlength="32" autocomplete="off" required>
-				    <small id="emailHelp" class="form-text text-muted">
-				    	(<span id="char-count">0</span>/32 characters)
-				    </small>
-			  	</div>
-			  	<button type="submit" id="submit" class="btn btn-primary">
-			  		Update Blockchain
-			  	</button>
-			</form>
-			<button class="connect-wallet btn btn-success">
-				Connect Wallet
-			</button>
-		</div>
 	</div>
 
 	<!-- Scripts -->

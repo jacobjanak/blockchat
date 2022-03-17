@@ -1,5 +1,5 @@
 body {
-	padding: 32px;
+	padding-top: 8px;
 	background-color: #FFEA80;
   	text-align: center;
   	font-family: sans-serif;
@@ -22,7 +22,11 @@ nav {
 }
 
 #form-container {
-	display: none;
+	/*display: none;*/
+	position: absolute;
+	bottom: 78px;
+	left: 50%;
+	transform: translateX(-50%);
 }
 
 #contract-text-input {
@@ -59,5 +63,5 @@ nav {
 }
 
 #submit {
-	display: none; /* Hide this until user connects wallet. */
+	/*display: none;  Hide this until user connects wallet. */
 }

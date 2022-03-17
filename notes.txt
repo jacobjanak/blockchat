@@ -5,8 +5,9 @@ optimize mobile
 > 'click here' becomes button
 > shorten shadows
 > more spacing under nav
-change wallet to correct network
+maybe: change edit text button
 
 // dev
 remove references to metamask
 shorten the element ids
+write README
