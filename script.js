@@ -11,7 +11,6 @@ $(document).ready(function() {
 
 	// Constants.
 	const connectWalletMsg = "CONNECT YOUR WALLET";
-	const wrongNetworkMsg = "WRONG ETHEREUM NETWORK";
 
 	// Smart contract.
 	const contract = {
@@ -59,7 +58,6 @@ $(document).ready(function() {
 		} else {
 			enableMetamask(function() {
 				if (ethereum.chainId != contract.chainId) {
-					$('#contract-text-display').text(wrongNetworkMsg);
 					switchChain(contract.chainId, getContractData)
 				}
 			});
