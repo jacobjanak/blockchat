@@ -89,7 +89,7 @@ contractForm.onsubmit = function(event) {
 
 	// Input must be converted to a hex number of length 64.
 	let hex = stringToHex(input);
-	while (hex.length < 64 + 2) hex += '0';
+	while (hex.length < 64) hex += '0';
 	console.log(hex)
 
 	// Send to blockchain.
@@ -112,9 +112,10 @@ function hexToString(hex) {
 // Convert string to hexadecimal number using char codes.
 // NOTE: Accepts weird characters, which is bad.
 function stringToHex(str) {
-	let hex = '0x';
+	let hex = '';
 	for (let i = 0; i < str.length; i++) {
 		let v = str.charCodeAt(i).toString(16);
+		if (v.length == 2) hex += v;
 	}
 	return hex;
 }
