@@ -89,6 +89,7 @@ $(document).ready(function() {
 	$('#contract-text-input').on('input', function() {
 		const input = $('#contract-text-input').val();
 		$('#char-count').text(input.length);
+		$('#contract-text-display').text(input);
 	})
 
 	// Check if user has MetaMask installed.
