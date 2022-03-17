@@ -1,5 +1,9 @@
 body {
-	font-family: sans-serif;
+	padding: 32px;
+	background-color: #FFEA80;
+  	text-align: center;
+  	font-family: sans-serif;
+  	letter-spacing: 0.08em;
 }
 
 nav {
@@ -41,6 +45,7 @@ nav {
 
 #wallet-display {
 	display: none; /* Hide this until user connects wallet. */
+	cursor: default;
 }
 
 #wallet-address {

@@ -3,6 +3,9 @@ To do:
 // foundational
 beautify site
 optimize mobile
+> 'click here' becomes button
+> shorten shadows
+> more spacing under nav
 change wallet to correct network
 
 // aesthetic

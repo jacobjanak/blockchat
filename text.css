@@ -1,13 +1,5 @@
 /* Taken from https://codepen.io/dariocorsi/pen/jqxERJ on 3/16/2022 */
 
-body {
-  padding: 2rem;
-  text-align: center;
-  background: #FFEA80;
-  letter-spacing: 0.08em;
-  line-height: 1.4;
-}
-
 .title {
   font-size: 7vw;
 }
