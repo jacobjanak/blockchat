@@ -40,7 +40,7 @@ $(document).ready(function() {
 	}
 
 	// Read data from the smart contract and display it.
-	if (hasMetamask()) {
+	if (hasMetamask() && ethereum.chainId == contract.chainId) {
 		contract.read(function(hex) {
 			contract.storage.text = hex;
 			const str = hexToString(contract.storage.text);
