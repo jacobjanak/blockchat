@@ -10,8 +10,8 @@ $(document).ready(function() {
 	let walletAddress = '';
 
 	// Constants.
-	const noEthereumMsg = "No Ethereum Wallet Detected";
-	const wrongNetworkMsg = "Wrong Ethereum network";
+	const connectWalletMsg = "CONNECT YOUR WALLET";
+	const wrongNetworkMsg = "WRONG ETHEREUM NETWORK";
 
 	// Smart contract.
 	const contract = {
@@ -26,6 +26,8 @@ $(document).ready(function() {
 			  	method: 'eth_getStorageAt',
 			  	params: [ this.address, '0x0' ],
 			})
+			console.log('text');
+			console.log(text);
 			if (callback) callback(text);
 		},
 
@@ -45,10 +47,7 @@ $(document).ready(function() {
 
 	// Read data from the smart contract and display it.
 	if (!hasMetamask()) {
-		$('#contract-text-display').text(noEthereumMsg);
-	} else if (ethereum.chainId != contract.chainId) {
-		console.log('foo');
-		$('#contract-text-display').text(wrongNetworkMsg);
+		$('#contract-text-display').text(connectWalletMsg);
 	} else {
 		getContractData();
 	}
@@ -61,8 +60,8 @@ $(document).ready(function() {
 		  	// TO DO: Create a function to run the page without metamask.
 		} else {
 			enableMetamask(function() {
-				$('#contract-text-display').text(wrongNetworkMsg);
 				if (ethereum.chainId != contract.chainId) {
+					$('#contract-text-display').text(wrongNetworkMsg);
 					switchChain(contract.chainId, getContractData)
 				}
 			});
