@@ -52,8 +52,10 @@ function hasMetamask () {
 
 // Read data from the smart contract and display it.
 if (hasMetamask()) {
-	contract.storage.text = contract.read();
-	contractTextDisplay.textContent = hexToString(contract.storage.text);
+	contract.read(function(hex) {
+		contract.storage.text = hex;
+		contractTextDisplay.textContent = hexToString(contract.storage.text);
+	});
 }
 
 // Button to prompt user to enable metamask.
