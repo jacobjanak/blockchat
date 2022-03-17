@@ -1,8 +1,8 @@
 // Update counter for GitHub pages.
-console.log('Update: 17'); 
+console.log('Update: 18'); 
 
 // User Ethereum wallet public address.
-let walletAddress = null;
+let walletAddress = '';
 
 // Smart contract.
 const contract = {
@@ -37,12 +37,21 @@ const contract = {
 if (hasMetamask()) {
 	contract.read(function(hex) {
 		contract.storage.text = hex;
-		$('#contract-text-display').text(hexToString(contract.storage.text));
+		const str = hexToString(contract.storage.text);
+
+		// Dynamically set font size according to text length.
+		// let fontSize = Math.ceil(100 / str.length);
+		// if (fontSize > 20) fontSize = 20;
+		// else if (fontSize < 2) fontSize = 2; // Should never happen.
+		// fontSize = fontSize + 'vw';
+
+		// Update DOM.
+		$('#contract-text-display').text(str); // .css({ fontSize });
 	});
 }
 
 // Button to prompt user to enable metamask.
-$('#enable-metamask-button').on('click', function() { 
+$('.connect-wallet').on('click', function() { 
 	// NOTE: Should I check for MetaMask or is ethereum enough?
 	if (!hasMetamask()) {
 	  	window.alert("Error: MetaMask not detected. Please install MetaMask.");
@@ -56,9 +65,14 @@ $('#enable-metamask-button').on('click', function() {
 	}
 })
 
+// Button to show/hide the text update form.
+$('#change-text').on('click', function() {
+	$('#form-container').toggle();
+})
+
 // Form to update the text in the smart contract.
-$('#contract-text-update-form').on('submit', function(event) {
-	event.preventDefault();
+$('#contract-text-update-form').on('submit', function(e) {
+	e.preventDefault();
 	const input = $('#contract-text-input').val().trim();
 
 	// Input must be converted to a hex number of length 64.
@@ -69,8 +83,14 @@ $('#contract-text-update-form').on('submit', function(event) {
 	// Send to blockchain.
 	contract.write(hex, function(txHash) {
 		console.log(txHash);
+		// TO DO: Give user some feedback.
 	})
 });
+
+$('#contract-text-input').on('input', function() {
+	const input = $('#contract-text-input').val();
+	$('#char-count').text(input.length);
+})
 
 // Check if user has MetaMask installed.
 function hasMetamask () {
@@ -83,7 +103,12 @@ async function enableMetamask() {
 		method: 'eth_requestAccounts'
 	});
 	walletAddress = accounts[0];
-	console.log(walletAddress);
+	
+	// Update DOM.
+	$('.connect-wallet').hide();
+	$('#submit').show();
+	$('#wallet-address').text(walletAddress.slice(-4));
+	$('#wallet-display').show();
 }
 
 // Convert hexadecimal number to string using char codes.
@@ -98,7 +123,7 @@ function hexToString(hex) {
 }
 
 // Convert string to hexadecimal number using char codes.
-// NOTE: Accepts weird characters, which is bad.
+// NOTE: Ignores weird characters, which is bad.
 function stringToHex(str) {
 	let hex = '';
 	for (let i = 0; i < str.length; i++) {

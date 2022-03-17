@@ -2,11 +2,55 @@ body {
 	font-family: sans-serif;
 }
 
-#jumbotron {
+nav {
+	height: 54px;
+}
+
+#spotlight {
 	margin-bottom: 160px;
 }
 
-#contract-text-update-form {
-	max-width: 280px;
-	margin: auto;
+.title {
+	overflow-wrap: break-word;
+	/* line-height: 1; looks better on browser */
+}
+
+#form-container {
+	display: none;
+}
+
+#contract-text-input {
+	width: 280px;
+}
+
+.btn-success {
+    background-color: #03a488 !important;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:visited {
+    background-color: #02836c !important;
+}
+
+.btn-primary {
+    background-color: #357bc1 !important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #255687 !important;
+}
+
+#wallet-display {
+	display: none; /* Hide this until user connects wallet. */
+}
+
+#wallet-address {
+	text-transform: uppercase;
+}
+
+#dots {
+	letter-spacing: 0;
+}
+
+#submit {
+	display: none; /* Hide this until user connects wallet. */
 }

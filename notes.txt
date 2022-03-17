@@ -1,6 +1,14 @@
-to do:
+To do:
 
+// foundational
+beautify site
+optimize mobile
 change wallet to correct network
+
+// aesthetic
 change favicon
+website name
+
+// dev
 remove references to metamask
 shorten the element ids

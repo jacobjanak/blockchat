@@ -1,3 +1,5 @@
+/* Taken from https://codepen.io/dariocorsi/pen/jqxERJ on 3/16/2022 */
+
 body {
   padding: 2rem;
   text-align: center;
@@ -12,7 +14,6 @@ body {
 .title .title-part {
   font-weight: 600;
   font-family: "Fredoka One", sans-serif;
-  /*text-transform: uppercase;*/
   display: block;
   color: #FFFFD9;
 }
