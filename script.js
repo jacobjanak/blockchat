@@ -9,6 +9,10 @@ $(document).ready(function() {
 	// User Ethereum wallet public address.
 	let walletAddress = '';
 
+	// Constants.
+	const noEthereumMsg = "No Ethereum Wallet Detected";
+	const wrongNetworkMsg = "Wrong Ethereum network";
+
 	// Smart contract.
 	const contract = {
 		chainId: '0x2a', // Kovan test network.
@@ -41,9 +45,10 @@ $(document).ready(function() {
 
 	// Read data from the smart contract and display it.
 	if (!hasMetamask()) {
-		$('#contract-text-display').text("No Ethereum Wallet Detected");
+		$('#contract-text-display').text(noEthereumMsg);
 	} else if (ethereum.chainId != contract.chainId) {
-		$('#contract-text-display').text("Wrong Ethereum network");
+		console.log('foo');
+		$('#contract-text-display').text(wrongNetworkMsg);
 	} else {
 		getContractData();
 	}
@@ -52,11 +57,11 @@ $(document).ready(function() {
 	$('.connect-wallet').on('click', function() { 
 		// NOTE: Should I check for MetaMask or is ethereum enough?
 		if (!hasMetamask()) {
-		  	window.alert("Error: MetaMask not detected. Please install MetaMask.");
+		  	window.alert("Error: No wallet detected.\n\nPlease install MetaMask or another Ethereum wallet.");
 		  	// TO DO: Create a function to run the page without metamask.
 		} else {
 			enableMetamask(function() {
-				$('#contract-text-display').text("Wrong Ethereum network");
+				$('#contract-text-display').text(wrongNetworkMsg);
 				if (ethereum.chainId != contract.chainId) {
 					switchChain(contract.chainId, getContractData)
 				}
