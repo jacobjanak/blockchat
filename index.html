@@ -7,12 +7,17 @@
 </head>
 <body>
 	<p>Welcome</p>
-	<button id="enableMetamask">Enable Metamask</button>
+	<div id="contract-text-display"></div>
+	<button id="enable-metamask">Enable Metamask</button>
 	<br />
-	<button id="sendTransaction">Send Transaction</button>
-	<br />
-	<button id="readData">Read Data</button>
 
+	<form id="contract-text-update-form">
+		<input id="contract-text-input" maxlength="32" required>
+		<!-- <input type="submit" text="Submit" /> -->
+		<button id="send-data">Send Transaction</button>
+	</form>
+
+	<!-- Scripts -->
 	<script src="script.js"></script>
 </body>
 </html>
