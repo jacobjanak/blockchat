@@ -1,26 +1,14 @@
 // Update counter for GitHub pages.
-console.log('Update: 16'); 
-
-// DOM references.
-const $contractTextDisplay = $('#contract-text-display');
-const $enableMetamaskButton = $('#enable-metamask-button');
-const $contractForm = $('#contract-text-update-form');
-const $contractTextInput = $('#contract-text-input');
+console.log('Update: 17'); 
 
 // User Ethereum wallet public address.
 let walletAddress = null;
 
 // Smart contract.
 const contract = {
-
-	// Public hex address of the contract.
-	address: '0xacB241f59E1a8c7A61f0781aed7Ad067269feb26',
-
-	// Hex address of the write method of the contract.
-	writeAddress: '0xfcc74f71',
-
-	// Contract storage contains bytes32 public text.
-	storage: { text: null },
+	address: '0xacB241f59E1a8c7A61f0781aed7Ad067269feb26', // Contract public address
+	writeAddress: '0xfcc74f71', // Hex address of the write method of the contract.
+	storage: { text: null }, // Contract storage contains only bytes32 public text.
 
 	// Read data from the contract.
 	read: async function(callback) {
@@ -49,12 +37,12 @@ const contract = {
 if (hasMetamask()) {
 	contract.read(function(hex) {
 		contract.storage.text = hex;
-		$contractTextDisplay.text(hexToString(contract.storage.text));
+		$('#contract-text-display').text(hexToString(contract.storage.text));
 	});
 }
 
 // Button to prompt user to enable metamask.
-$enableMetamaskButton.on('click', function() { 
+$('#enable-metamask-button').on('click', function() { 
 	// NOTE: Should I check for MetaMask or is ethereum enough?
 	if (!hasMetamask()) {
 	  	window.alert("Error: MetaMask not detected. Please install MetaMask.");
@@ -69,9 +57,9 @@ $enableMetamaskButton.on('click', function() {
 })
 
 // Form to update the text in the smart contract.
-$contractForm.on('submit', function(event) {
+$('#contract-text-update-form').on('submit', function(event) {
 	event.preventDefault();
-	const input = $contractTextInput.val().trim();
+	const input = $('#contract-text-input').val().trim();
 
 	// Input must be converted to a hex number of length 64.
 	let hex = stringToHex(input);
@@ -84,6 +72,11 @@ $contractForm.on('submit', function(event) {
 	})
 });
 
+// Check if user has MetaMask installed.
+function hasMetamask () {
+	return window.ethereum ? ethereum.isMetaMask : false;
+}
+
 // Prompt user to enable MetaMask through the extension.
 async function enableMetamask() {
 	const accounts = await ethereum.request({
@@ -91,11 +84,6 @@ async function enableMetamask() {
 	});
 	walletAddress = accounts[0];
 	console.log(walletAddress);
-}
-
-// Check if user has MetaMask installed.
-function hasMetamask () {
-	return window.ethereum ? ethereum.isMetaMask : false;
 }
 
 // Convert hexadecimal number to string using char codes.

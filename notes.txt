@@ -1,0 +1,6 @@
+to do:
+
+change wallet to correct network
+change favicon
+remove references to metamask
+shorten the element ids

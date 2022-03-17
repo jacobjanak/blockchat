@@ -1,0 +1,12 @@
+body {
+	font-family: sans-serif;
+}
+
+#jumbotron {
+	margin-bottom: 160px;
+}
+
+#contract-text-update-form {
+	max-width: 280px;
+	margin: auto;
+}
