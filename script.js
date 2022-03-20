@@ -40,7 +40,7 @@ $(document).ready(function() {
 	}
 
 	// Read data from the smart contract and display it.
-	if (!hasMetamask() || ethereum.chainId != contract.chainId) {
+	if (!hasMetamask()) {
 		$('#contract-text-display').text(connectWalletMsg);
 	} else {
 		getContractData();
