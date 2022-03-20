@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 				// Update DOM.
 				$('#contract-text-display').text(str); // .css({ fontSize });
-				$('#time').text(hour + ':' + minute);
+				$('#time').text(hours + ':' + minutes);
 				$('#text-retrieved').show();
 			}
 		});
