@@ -6,9 +6,6 @@ $(document).ready(function() {
 	// User Ethereum wallet public address.
 	let walletAddress = '';
 
-	// Constants.
-	const connectWalletMsg = "CONNECT YOUR WALLET";
-
 	// Smart contract.
 	const contract = {
 		chainId: '0x2a', // Kovan test network.
@@ -40,9 +37,7 @@ $(document).ready(function() {
 	}
 
 	// Read data from the smart contract and display it.
-	if (!hasMetamask()) {
-		$('#contract-text-display').text(connectWalletMsg);
-	} else {
+	if (hasMetamask()) {
 		getContractData();
 	}
 
@@ -99,9 +94,7 @@ $(document).ready(function() {
 		contract.read(function(hex) {
 
 			// Happens when user is connected to wrong eth network.
-			if (hex === '0x0000000000000000000000000000000000000000000000000000000000000000') {
-				$('#contract-text-display').text(connectWalletMsg);
-			} else {
+			if (hex !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
 				contract.storage.text = hex;
 				const str = hexToString(contract.storage.text);
 
