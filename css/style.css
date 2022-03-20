@@ -17,6 +17,7 @@ nav {
 
 #circle {
 	display: inline-block;
+	margin-right: 1px;
   	border-radius: 50%;
   	width: 22px;
   	height: 22px;
