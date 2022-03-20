@@ -89,6 +89,7 @@ $(document).ready(function() {
 		const input = $('#contract-text-input').val();
 		$('#char-count').text(input.length);
 		$('#contract-text-display').text(input);
+		$('#text-retrieved').hide();
 	})
 
 	// Check if user has MetaMask installed.
@@ -96,25 +97,37 @@ $(document).ready(function() {
 		return window.ethereum ? ethereum.isMetaMask : false;
 	}
 
-	// Read the contract data and update the DOM.
+	// Continuously read the contract data and update the DOM.
 	function getContractData() {
-		contract.read(function(hex) {
+		setInterval(function() {
+			contract.read(function(hex) {
 
-			// Happens when user is connected to wrong eth network.
-			if (hex !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
-				contract.storage.text = hex;
-				const str = hexToString(contract.storage.text);
+				// Happens when user is connected to wrong eth network.
+				if (hex !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
+					contract.storage.text = hex;
+					const str = hexToString(contract.storage.text);
 
-				// Dynamically set font size according to text length.
-				// let fontSize = Math.ceil(100 / str.length);
-				// if (fontSize > 20) fontSize = 20;
-				// else if (fontSize < 2) fontSize = 2; // Should never happen.
-				// fontSize = fontSize + 'vw';
+					// Dynamically set font size according to text length.
+					// let fontSize = Math.ceil(100 / str.length);
+					// if (fontSize > 20) fontSize = 20;
+					// else if (fontSize < 2) fontSize = 2; // Should never happen.
+					// fontSize = fontSize + 'vw';
 
-				// Update DOM.
-				$('#contract-text-display').text(str); // .css({ fontSize });
-			}
-		});
+					// Determine current time.
+					const d = new Date();
+					const hour = d.getHours();
+					const minutes = d.getMinutes();
+					if (hour === 0) hour = 12;
+					if (hour < 10) hour = '0' + hour;
+					if (minute < 10) minute = '0' + minute;
+
+					// Update DOM.
+					$('#contract-text-display').text(str); // .css({ fontSize });
+					$('#time').text(hour + ':' + minute);
+					$('#text-retrieved').show();
+				}
+			});
+		}, 10 * 1000);
 	}
 
 	// Prompt user to enable MetaMask through the extension.

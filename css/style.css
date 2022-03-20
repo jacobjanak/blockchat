@@ -11,8 +11,8 @@ nav {
 }
 
 .a-reset {
-  color: inherit;
-  text-decoration: inherit; /* No underline */
+  	color: inherit;
+  	text-decoration: inherit; /* No underline */
 }
 
 #circle {
@@ -26,7 +26,7 @@ nav {
 }
 
 #spotlight {
-	margin-bottom: 160px;
+	margin-bottom: 120px;
 	padding-left: 5%;
 	padding-right: 5%;
 }
@@ -41,6 +41,10 @@ nav {
 	.title {
 		font-size: 48px;
 	}
+}
+
+#text-retrieved {
+	display: none;
 }
 
 #form-container {
