@@ -98,36 +98,41 @@ $(document).ready(function() {
 	}
 
 	// Continuously read the contract data and update the DOM.
-	function getContractData() {
-		setInterval(function() {
-			contract.read(function(hex) {
+	function getContractData(repeat = true) {
+		contract.read(function(hex) {
 
-				// Happens when user is connected to wrong eth network.
-				if (hex !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
-					contract.storage.text = hex;
-					const str = hexToString(contract.storage.text);
+			// Happens when user is connected to wrong eth network.
+			if (hex !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
+				contract.storage.text = hex;
+				const str = hexToString(contract.storage.text);
 
-					// Dynamically set font size according to text length.
-					// let fontSize = Math.ceil(100 / str.length);
-					// if (fontSize > 20) fontSize = 20;
-					// else if (fontSize < 2) fontSize = 2; // Should never happen.
-					// fontSize = fontSize + 'vw';
+				// Dynamically set font size according to text length.
+				// let fontSize = Math.ceil(100 / str.length);
+				// if (fontSize > 20) fontSize = 20;
+				// else if (fontSize < 2) fontSize = 2; // Should never happen.
+				// fontSize = fontSize + 'vw';
 
-					// Determine current time.
-					const d = new Date();
-					let hour = d.getHours();
-					let minutes = d.getMinutes();
-					if (hour === 0) hour = 12;
-					if (hour < 10) hour = '0' + hour;
-					if (minute < 10) minute = '0' + minute;
+				// Determine current time.
+				const d = new Date();
+				let hours = d.getHours();
+				let minutes = d.getMinutes();
+				if (hours === 0) hours = 12;
+				if (hours < 10) hours = '0' + hours;
+				if (minutes < 10) minutes = '0' + minutes;
 
-					// Update DOM.
-					$('#contract-text-display').text(str); // .css({ fontSize });
-					$('#time').text(hour + ':' + minute);
-					$('#text-retrieved').show();
-				}
-			});
-		}, 10 * 1000);
+				// Update DOM.
+				$('#contract-text-display').text(str); // .css({ fontSize });
+				$('#time').text(hour + ':' + minute);
+				$('#text-retrieved').show();
+			}
+		});
+
+		// When this runs for the first time we want it to keep running.
+		if (repeat) {
+			setInterval(function() {
+				getContractData(false);
+			}, 10 * 1000);
+		}
 	}
 
 	// Prompt user to enable MetaMask through the extension.
