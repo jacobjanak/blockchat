@@ -18,11 +18,17 @@ nav {
 
 .title {
 	overflow-wrap: break-word;
+	font-size: 7vw;
 	/* line-height: 1; looks better on browser */
 }
 
+@media (max-width: 767px) {
+	.title {
+		font-size: 48px;
+	}
+}
+
 #form-container {
-	/*display: none;*/
 	position: absolute;
 	bottom: 78px;
 	left: 50%;
@@ -60,8 +66,4 @@ nav {
 
 #dots {
 	letter-spacing: 0;
-}
-
-#submit {
-	/*display: none;  Hide this until user connects wallet. */
 }

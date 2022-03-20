@@ -1,8 +1,5 @@
 $(document).ready(function() {
 
-	// Update counter for GitHub pages.
-	console.log('Update: 20');
-
 	// Enable all tooltips.
 	$('[data-toggle="tooltip"]').tooltip();
 
@@ -43,14 +40,14 @@ $(document).ready(function() {
 	}
 
 	// Read data from the smart contract and display it.
-	if (!hasMetamask()) {
+	if (!hasMetamask() || ethereum.chainId != contract.chainId) {
 		$('#contract-text-display').text(connectWalletMsg);
 	} else {
 		getContractData();
 	}
 
 	// Button to prompt user to enable metamask.
-	$('.connect-wallet').on('click', function() { 
+	$('#connect-wallet').on('click', function() { 
 		// NOTE: Should I check for MetaMask or is ethereum enough?
 		if (!hasMetamask()) {
 		  	window.alert("Error: No wallet detected.\n\nPlease install MetaMask or another Ethereum wallet.");
@@ -128,20 +125,17 @@ $(document).ready(function() {
 		walletAddress = accounts[0];
 		
 		// Update DOM.
-		$('.connect-wallet').hide();
-		$('#submit').show();
+		$('#connect-wallet').hide();
 		$('#wallet-address').text(walletAddress.slice(-4));
 		$('#wallet-display').show();
 		if (callback) callback();
 	}
 
 	async function switchChain(chainId, callback) {
-		const x = await ethereum.request({
+		await ethereum.request({
 			method: 'wallet_switchEthereumChain',
 			params: [{ chainId }],
 		});
-		console.log("x");
-		console.log(x);
 		if (callback) callback();
 	}
 

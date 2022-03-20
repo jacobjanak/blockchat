@@ -22,12 +22,15 @@
 					BlockChat
 				</span>
 				<span id="wallet-display" class="mt-1" data-toggle="tooltip" data-placement="bottom" title="Wallet connected">
+
+					<!-- Wallet icon -->
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-wallet" viewBox="0 0 16 20">
 	  					<path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z"/>
 					</svg>
+
 					<span>0x<span id="dots">...</span><span id="wallet-address"></span></span>
 				</span>
-				<button class="connect-wallet btn btn-success">
+				<button id="connect-wallet" class="btn btn-success">
 					Connect Wallet
 				</button>
 			</div>
@@ -35,15 +38,10 @@
 
 		<!-- Spotlight word -->
 		<h1 id="spotlight" class="title">
-		    <span id="contract-text-display" class="title-part line-1"></span>
-		  </h1>
+			<span id="contract-text-display" class="title-part line-1"></span>
+		</h1>
 
 	  	<!-- Update form -->
-<!-- 		<div class="mb-3">
-			<button type="button" id="change-text" class="btn">
-				<h5 class="mb-0"><i>Click here to change the text.</i></h5>
-			</button>
-		</div> -->
 		<div id="form-container">
 			<div class="d-inline-block ml-auto mr-auto">
 				<form id="contract-text-update-form">
@@ -57,9 +55,6 @@
 				  		Update Blockchain
 				  	</button>
 				</form>
-<!-- 				<button class="connect-wallet btn btn-success">
-					Connect Wallet
-				</button> -->
 			</div>
 		</div>
 

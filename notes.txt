@@ -1,13 +1,12 @@
 To do:
 
 // foundational
-optimize mobile
-> 'click here' becomes button
-> shorten shadows
-> more spacing under nav
-maybe: change edit text button
+Shorten shadows on mobile (or fix font size)
+live update should revert text to original if input is cleared
+'update blockchain' button should be disabled until wallet is connected
 
 // dev
+clean code and comments
 remove references to metamask
 shorten the element ids
 write README
