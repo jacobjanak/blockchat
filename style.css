@@ -6,13 +6,13 @@ body {
   	letter-spacing: 0.08em;
 }
 
-a {
-  color: inherit;
-  text-decoration: inherit; /* No underline */
-}
-
 nav {
 	height: 54px;
+}
+
+.a-reset {
+  color: inherit;
+  text-decoration: inherit; /* No underline */
 }
 
 #circle {
