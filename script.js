@@ -115,8 +115,8 @@ $(document).ready(function() {
 
 					// Determine current time.
 					const d = new Date();
-					const hour = d.getHours();
-					const minutes = d.getMinutes();
+					let hour = d.getHours();
+					let minutes = d.getMinutes();
 					if (hour === 0) hour = 12;
 					if (hour < 10) hour = '0' + hour;
 					if (minute < 10) minute = '0' + minute;
