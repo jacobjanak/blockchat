@@ -45,12 +45,19 @@ $(document).ready(function() {
 	$('#connect-wallet').on('click', function() { 
 		// NOTE: Should I check for MetaMask or is ethereum enough?
 		if (!hasMetamask()) {
-		  	window.alert("Error: No wallet detected.\n\nPlease install MetaMask or another Ethereum wallet.");
+		  	window.alert("No wallet detected. Please install MetaMask or another Ethereum wallet.");
 		  	// TO DO: Create a function to run the page without metamask.
 		} else {
 			enableMetamask(function() {
 				if (ethereum.chainId != contract.chainId) {
-					switchChain(contract.chainId, getContractData)
+					switchChain(contract.chainId, function() {
+						$('#no-submit').hide();
+						$('#submit').show();
+						getContractData();
+					})
+				} else {
+					$('#no-submit').hide();
+					$('#submit').show();
 				}
 			});
 		}
