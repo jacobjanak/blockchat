@@ -130,7 +130,9 @@ $(document).ready(function() {
 		// When this runs for the first time we want it to keep running.
 		if (repeat) {
 			setInterval(function() {
-				getContractData(false);
+				if ($('#contract-text-input').val()) {
+					getContractData(false);
+				}
 			}, 10 * 1000);
 		}
 	}
